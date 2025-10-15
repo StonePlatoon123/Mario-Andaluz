@@ -2,6 +2,8 @@
 
 ¡EPA! Soy Mario Andaluz, un bot de Discord súper completo que habla andaluz EPA y tiene funcionalidades increíbles para hacer tu servidor más divertido y auténtico.
 
+¡¡¡Estoy creado a partir del bot de AndaluGeeks, no soy un proyecto 100% original!!!
+
 ## Características Principales
 
 ### Transcripción al Andaluz EPA
@@ -123,9 +125,6 @@ Transcribe texto al andaluz EPA usando la API de AndaluGeeks.
 /transcribir texto:"Hola, ¿cómo estás?" webhook:true
 ```
 
-#### `/saludo`
-Saludo personalizado en andaluz.
-
 **Opciones:**
 - `nombre` (opcional): Nombre para el saludo
 
@@ -166,7 +165,7 @@ Edita el archivo `config.js` para personalizar las respuestas automáticas:
 ```javascript
 autoResponses: {
     responses: [
-        { trigger: /hola|hello|hi/i, response: '¡EPA! ¿Qué tal, colega?' },
+        { trigger: /hola|hello|hi/i, response: '¿Qué tal, colega?' },
         // Añade más respuestas aquí
     ]
 }
@@ -178,7 +177,7 @@ Modifica la sección `frases` en `config.js`:
 ```javascript
 frases: {
     saludos: [
-        '¡EPA! ¿Qué tal, colega?',
+        '¿Qué tal, colega?',
         // Añade más saludos aquí
     ]
 }
@@ -266,6 +265,6 @@ Si tienes problemas o preguntas:
 
 ---
 
-¡EPA! ¡Que vaya bien con Mario Andaluz! 
+¡Que vaya bien con Mario Andaluz! 
 
 *Desarrollado con ❤️ en Andalucía*

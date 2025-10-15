@@ -1,0 +1,27 @@
+{
+  "name": "mario-andaluz-bot",
+  "version": "1.0.0",
+  "description": "Bot de Discord súper completo que habla andaluz EPA con transcripción automática",
+  "main": "index.js",
+  "scripts": {
+    "start": "node setup.js && node index.js",
+    "dev": "nodemon index.js",
+    "setup": "node setup.js",
+    "deploy": "node deploy-commands.js",
+    "install-deps": "npm install",
+    "auto-start": "npm run install-deps && npm run setup && npm run deploy && npm start"
+  },
+  "keywords": ["discord", "bot", "andaluz", "epa", "transcripcion"],
+  "author": "Mario Andaluz",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "node-cron": "^3.0.3",
+    "chalk": "^4.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

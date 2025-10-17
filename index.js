@@ -115,11 +115,11 @@ client.on(Events.MessageCreate, async message => {
     
     // Respuestas automáticas en andaluz (se transcriben automáticamente con EPA)
     const responses = [
-        { trigger: /hola|hello|hi/i, response: '¡EPA! ¿Qué tal, colega? ¡Aquí está Mario Andaluz pa echarte una mano!' },
-        { trigger: /gracias|thanks/i, response: '¡De ná, colega! ¡Pa eso estamos los andaluces, pa ayudarnos!' },
-        { trigger: /adiós|bye|hasta luego/i, response: '¡Hasta luego, colega! ¡Que vaya bien y no te olvides de echarle ganas!' },
-        { trigger: /bot|mario/i, response: '¡EPA! Aquí estoy, colega. ¿En qué te puedo ayudar?' },
-        { trigger: /andaluz|andalucía/i, response: '¡Eso es! ¡Andalucía es la hostia, colega! ¡Aquí se vive de puta madre!' }
+        { trigger: /hola|hello|hi/i, response: '' },
+        { trigger: /gracias|thanks/i, response: '' },
+        { trigger: /adiós|bye|hasta luego/i, response: '' },
+        { trigger: /bot|mario/i, response: '' },
+        { trigger: /andaluz|andalucía/i, response: '' }
     ];
 
     for (const { trigger, response } of responses) {

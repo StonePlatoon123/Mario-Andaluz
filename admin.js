@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { transcribirEmbedEPA } = require('../epa-auto-transcriber');
+const { transcribirEmbedEPA } = require('./epa-auto-transcriber');
 
 module.exports = {
     data: new SlashCommandBuilder()

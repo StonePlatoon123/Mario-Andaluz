@@ -4,11 +4,20 @@ const EPA = require('../epa-transcriber');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('transcribir')
-        .setDescription('Transcribe cualquier texto al andaluz EPA usando el sistema local')
+        .setDescription('Transcribe cualquier texto al andaluz EPA con diferentes variantes (ç/s, h/j)')
         .addStringOption(option =>
             option.setName('texto')
                 .setDescription('El texto que quieres transcribir al andaluz')
                 .setRequired(true))
+        .addStringOption(option =>
+            option.setName('tipo')
+                .setDescription('Tipo de transcripción a usar')
+                .setRequired(false)
+                .addChoices(
+                    { name: 'EPA Clásico (ç)', value: 'epa_classico' },
+                    { name: 'EPA Moderno (s)', value: 'epa_moderno' },
+                    { name: 'EPA Híbrido (ç/s)', value: 'epa_hibrido' }
+                ))
         .addBooleanOption(option =>
             option.setName('webhook')
                 .setDescription('Enviar como webhook simulando al usuario (por defecto: true)')
@@ -18,12 +27,35 @@ module.exports = {
         await interaction.deferReply({ ephemeral: true });
 
         const texto = interaction.options.getString('texto');
+        const tipoTranscripcion = interaction.options.getString('tipo') ?? 'epa_classico';
         const usarWebhook = interaction.options.getBoolean('webhook') ?? true;
 
         try {
             // Usar sistema local de transcripción EPA
             const epa = new EPA();
-            const textoTranscrito = epa.transcribir(texto);
+            
+            // Configurar variantes según el tipo elegido
+            let vaf, vvf, tipoNombre;
+            switch (tipoTranscripcion) {
+                case 'epa_moderno':
+                    vaf = 's';  // Usar 's' en lugar de 'ç'
+                    vvf = 'j';  // Usar 'j' en lugar de 'h'
+                    tipoNombre = 'EPA Moderno (s/j)';
+                    break;
+                case 'epa_hibrido':
+                    vaf = 'ç';  // Usar 'ç' para s/z
+                    vvf = 'j';  // Usar 'j' para g/j
+                    tipoNombre = 'EPA Híbrido (ç/j)';
+                    break;
+                case 'epa_classico':
+                default:
+                    vaf = 'ç';  // Usar 'ç' (por defecto)
+                    vvf = 'h';  // Usar 'h' (por defecto)
+                    tipoNombre = 'EPA Clásico (ç/h)';
+                    break;
+            }
+            
+            const textoTranscrito = epa.transcript(texto, vaf, vvf);
 
             if (usarWebhook) {
                 // Crear webhook temporal
@@ -58,7 +90,8 @@ module.exports = {
                     .setDescription('Tu texto ha sido transcrito al andaluz EPA y enviado como webhook.')
                     .addFields(
                         { name: '📝 Texto original', value: texto, inline: false },
-                        { name: '🎯 Texto transcrito', value: textoTranscrito, inline: false }
+                        { name: '🎯 Texto transcrito', value: textoTranscrito, inline: false },
+                        { name: '🔧 Tipo usado', value: tipoNombre, inline: true }
                     )
                     .setTimestamp()
                     .setFooter({ text: '¡EPA! ¡Transcripción completada, colega!' });
@@ -73,7 +106,8 @@ module.exports = {
                     .setDescription('¡Aquí tienes tu texto transcrito, colega!')
                     .addFields(
                         { name: '📝 Texto original', value: texto, inline: false },
-                        { name: '🎯 Texto transcrito', value: textoTranscrito, inline: false }
+                        { name: '🎯 Texto transcrito', value: textoTranscrito, inline: false },
+                        { name: '🔧 Tipo usado', value: tipoNombre, inline: true }
                     )
                     .setTimestamp()
                     .setFooter({ text: '¡EPA! ¡Transcripción completada, colega!' });
